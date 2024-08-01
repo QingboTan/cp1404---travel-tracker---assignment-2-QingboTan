@@ -1,0 +1,78 @@
+# Create your Kivy layout in the kv language here
+<Widget>:
+    color: 1, 1, 1, 1
+
+BoxLayout:
+    place_sorter: place_sorter
+    place_list: place_list
+    top_label: top_label
+    bottom_label: bottom_label
+    BoxLayout:
+        orientation: "horizontal"
+        BoxLayout:    #Left side for sorting lists, entering information, buttons
+            orientation: "vertical"
+            size_hint_x: 1
+            Label:
+                text: "Sort by:"
+                size_hint_y: None
+                height: dp(60)
+            Spinner:
+                id: place_sorter
+                text: "Visited"
+                size_hint_y: None
+                height: dp(60)
+                values:('Visited','Priority','Country','Name')
+                on_text:app.sort_place_list(place_sorter.text)
+            Label:
+                text:'Add New Place...'
+                size_hint_y:None
+                height: dp(60)
+            Label:
+                text:"Name:"
+                size_hint_y:None
+                height: dp(60)
+            TextInput:
+                write_tab: False
+                id: input_name
+                size_hint_y: None
+                height: dp(60)
+            Label:
+                text:"Country:"
+                size_hint_y:None
+                height: dp(60)
+            TextInput:
+                write_tab: False
+                id: input_country
+                size_hint_y: None
+                height: dp(60)
+            Label:
+                text:"Priority:"
+                size_hint_y:None
+                height: dp(60)
+            TextInput:
+                write_tab: False
+                id: input_priority
+                size_hint_y: None
+                height: dp(60)
+            Button:
+                text:"Add Place"
+                size_hint_y: 2
+                on_press:app.add_new_place(input_name, input_country, input_priority)
+            Button:
+                text:"Clear"
+                size_hint_y: 2
+                on_press:app.clear_input_field(input_name, input_country, input_priority)
+        BoxLayout:    #Right side for displaying
+            orientation:"vertical"
+            size_hint_x:3
+            Label:
+                id:top_label
+                size_hint_y:None
+                height: dp(60)
+            BoxLayout:
+                orientation:'vertical'
+                id:place_list
+            Label:
+                id:bottom_label
+                height: dp(60)
+                size_hint_y:None
